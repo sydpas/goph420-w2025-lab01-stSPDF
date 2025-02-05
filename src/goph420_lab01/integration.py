@@ -71,6 +71,11 @@ def integrate_newton(x, f, alg):
         -----
         integral: float
             Provides the integral estimate.
+
+        Raises
+        -----
+        ValueError
+            If the number of points is not odd.
         """
 
         if len(x) % 2 == 0:  # make sure the number of points is odd
@@ -91,4 +96,38 @@ def integrate_newton(x, f, alg):
         return integrate_newton_simp(x, f)
     elif alg not in ['trap', 'simp']:
         raise TypeError("Please use either the Trapezoid rule or Simpson's rule.")
+
+def integrate_gauss(f, lims, npts):
+    """
+    This function performs numerical integration of a function using Gauss-Legendre quadrature.
+
+    Parameters
+    -----
+    f: callable object
+        Function to be integrated.
+    lims: object with len(2).
+        Contains the lower and upper bound of integration.
+    npts: int
+        Has possible values of 1, 2, 3, 4, 5, but a default of 3.
+
+    Returns
+    -----
+    float: float
+        Provides the integral estimate.
+
+    Notes
+    -----
+
+
+    Raises
+    -----
+    TypeError
+        If f is not callable.
+    ValueError
+        If lims does not have a length of 2.
+    ValueError
+        If lims[0] or lims[1] are not float convertible.
+    ValueError
+        If npts is not one of the possible values.
+    """
 
