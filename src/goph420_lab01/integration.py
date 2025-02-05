@@ -73,16 +73,16 @@ def integrate_newton(x, f, alg):
             Provides the integral estimate.
         """
 
-        n = len(x) - 1
-        #  make sure the number of points is odd
-        if n % 2 == 0:
+        if len(x) % 2 == 0:  # make sure the number of points is odd
            raise ValueError("The number of points (len(x)) must be odd for Simpson's 1/3 rule.")
 
-        h = (x[-1] - x[0]) / n
-        integral = f[0] + f[-1]  #  first and law terms
-        integral += 4 * np.sum(f[1:-1:2])  #  odd terms
-        integral += 2 * np.sum(f[2:-2:2])  #  even terms
-        integral *= h / 3  #  multiply by 1/3
+        n = len(x) - 1  # number of intervals
+        h = (x[-1] - x[0]) / n  # step size
+
+        integral = f[0] + f[-1]  # first and law terms
+        integral += 4 * np.sum(f[1:-1:2])  # odd terms
+        integral += 2 * np.sum(f[2:-2:2])  # even terms
+        integral *= h / 3  # multiply by 1/3
         return integral
 
     if alg.strip().lower() == 'trap':
