@@ -84,6 +84,7 @@ def integrate_newton(x, f, alg):
         n = len(x) - 1  # number of intervals
         h = (x[-1] - x[0]) / n  # step size
 
+        # using equation (6)
         integral = f[0] + f[-1]  # first and law terms
         integral += 4 * np.sum(f[1:-1:2])  # odd terms
         integral += 2 * np.sum(f[2:-2:2])  # even terms
@@ -137,8 +138,24 @@ def integrate_gauss(f, lims, npts):
         raise ValueError("The parameter 'lims' must have two elements: a and b.")
     if lims[0] != float(lims[0]) or lims[1] != float(lims[1]):
         raise ValueError("lims[0] and lims[1] must be float convertible. ")
-    if npts > 5:
+    if npts not in [1, 2, 3, 4, 5]:
         raise ValueError("npts must be either 1, 2, 3, 4, or 5.")
+
+    # determine sample points and weights for integration over [-1, 1]
+    xi, wi = np.polynomial.legendre.leggauss(npts)
+    a, b = lims
+
+    # shifts then scales sample points from [-1, 1] to [a, b], eq (9)
+    xi = ((b + a)/2) + (((b - a)/2) * xi)
+
+    # only scales weights from [-1, 1] to [a, b], eq (10)
+    wi = ((b - a)/2) * wi
+
+    # approx integral
+    integral = 0
+    for i in range(npts):
+        integral += wi[i] * f(xi[i])
+    return integral
 
     
 
