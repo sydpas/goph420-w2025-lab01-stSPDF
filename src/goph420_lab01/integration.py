@@ -131,3 +131,14 @@ def integrate_gauss(f, lims, npts):
         If npts is not one of the possible values.
     """
 
+    if not callable(f):
+        raise TypeError("The function f must be callable.")
+    if not len(lims) == 2:
+        raise ValueError("The parameter 'lims' must have two elements: a and b.")
+    if lims[0] != float(lims[0]) or lims[1] != float(lims[1]):
+        raise ValueError("lims[0] and lims[1] must be float convertible. ")
+    if npts > 5:
+        raise ValueError("npts must be either 1, 2, 3, 4, or 5.")
+
+    
+
