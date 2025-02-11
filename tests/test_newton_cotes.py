@@ -5,7 +5,7 @@ from src.goph420_lab01.integration import (
 )
 
 def test_newton_trap():
-    x = np.linspace(-2, 5, 100)
+    x = np.linspace(-2, 5, 50)
 
     # constant func
     f0 = 5.0 * np.ones_like(x)
