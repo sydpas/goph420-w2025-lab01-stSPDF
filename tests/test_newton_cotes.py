@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.goph420_lab01.integration import (
+from goph420_lab01.integration import (
     integrate_newton
 )
 
