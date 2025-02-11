@@ -51,7 +51,7 @@ def integrate_newton(x, f, alg):
         integral: float
             Provides the integral estimate.
         """
-        h = np.diff(x)  # calc difference between values
+        h = np.diff(x)  # step size
         integral = np.sum(h * (f[:-1] + f[1:]) / 2)  # h * average of all intermediate elements of f
         return integral
 
