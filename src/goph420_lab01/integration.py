@@ -58,7 +58,7 @@ def integrate_newton(x, f, alg):
 
     def integrate_newton_simp(x, f):
         """
-        This function performs numerical integration of discrete data using Simpson's rule.
+        This function performs numerical integration of discrete data using Simpson's mutli-application rule.
 
         Parameters
         -----
@@ -116,10 +116,6 @@ def integrate_gauss(f, lims, npts):
     float: float
         Provides the integral estimate.
 
-    Notes
-    -----
-
-
     Raises
     -----
     TypeError
@@ -142,19 +138,19 @@ def integrate_gauss(f, lims, npts):
         raise ValueError("npts must be either 1, 2, 3, 4, or 5.")
 
     # determine sample points and weights for integration over [-1, 1]
-    xi, wi = np.polynomial.legendre.leggauss(npts)
+    xi_star, ci_star = np.polynomial.legendre.leggauss(npts)
     a, b = lims
 
     # shifts then scales sample points from [-1, 1] to [a, b], eq (9)
-    xi = ((b + a)/2) + (((b - a)/2) * xi)
+    xi = ((b + a)/2) + (((b - a)/2) * xi_star)
 
     # only scales weights from [-1, 1] to [a, b], eq (10)
-    wi = ((b - a)/2) * wi
+    ci = ((b - a)/2) * ci_star
 
     # approx integral
     integral = 0
     for i in range(npts):
-        integral += wi[i] * f(xi[i])
+        integral += ci[i] * f(xi[i])
     return integral
 
     
