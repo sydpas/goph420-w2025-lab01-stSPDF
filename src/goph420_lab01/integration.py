@@ -137,7 +137,7 @@ def integrate_gauss(f, lims, npts):
     if npts not in [1, 2, 3, 4, 5]:
         raise ValueError("npts must be either 1, 2, 3, 4, or 5.")
 
-    # determine sample points and weights for integration over [-1, 1]
+    # creating sample points and weights for integration over [-1, 1]
     xi_star, ci_star = np.polynomial.legendre.leggauss(npts)
     a, b = lims
 
