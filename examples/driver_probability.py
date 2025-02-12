@@ -12,6 +12,7 @@ def prob_seismic(x):
     #  equation 18
     z = (x - np.mean(x)) / np.std(x)
     lims = [-np.inf, z]
+    # test
     #  equation 17
     stand_normal_prob = (1/np.sqrt(2*np.pi)) * np.exp((-1/2)*z**2)
     #  equation 16
