@@ -10,17 +10,20 @@ def main():
     plt.figure(figsize=(6, 8))
 
     plt.subplot(2,1,1)
-    plt.plot(t_data, v_data, "-b", label="s_wave_data")
-    plt.xlabel("time (s)")
-    plt.ylabel("velocity (mm/s)")
+    plt.grid()
+    plt.plot(t_data, v_data, "-b", label="Seismic wave data")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Velocity (mm/s)")
     plt.legend()
 
     plt.subplot(2,1,2)
-    plt.plot(t_data, v2_data, "-r", label="s_wave_data")
-    plt.xlabel("time (s)")
-    plt.ylabel("squared velocity (mm/s)")
+    plt.grid()
+    plt.plot(t_data, v2_data, "-r", label="Seismic wave data")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Squared velocity (mm/s)")
     plt.legend()
 
+    plt.suptitle("Velocity as a Function of Time", fontsize=14)
     plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/s_wave_figure.png")
     plt.show()
 
