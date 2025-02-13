@@ -3,27 +3,27 @@ import numpy as np
 
 from goph420_lab01.integration import (
     integrate_newton,
-    integrate_gauss,
 )
+
 
 def main():
     data = np.loadtxt("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/data/s_wave_data.txt")
-    t_data = data[:,0]
-    v_data = data[:,1]
+    t_data = data[:, 0]
+    v_data = data[:, 1]
     v2_data = v_data**2
 
     # part 1
 
     plt.figure(figsize=(6, 8))
 
-    plt.subplot(2,1,1)
+    plt.subplot(2, 1, 1)
     plt.grid()
     plt.plot(t_data, v_data, "-b", label="Seismic wave data")
     plt.xlabel("Time (s)")
     plt.ylabel("Velocity (mm²/s²)")
     plt.legend()
 
-    plt.subplot(2,1,2)
+    plt.subplot(2, 1, 2)
     plt.grid()
     plt.plot(t_data, v2_data, "-r", label="Squared Seismic wave data")
     plt.xlabel("Time (s)")
@@ -81,11 +81,8 @@ def main():
         app_rel_e_simp = abs((I_down_simp - I_ref_simp)/I_ref_simp)
         simp_error.append(float(app_rel_e_simp))
 
-        print(f"Δt = {i}, I_down_simp = {I_down_simp}")
-
     print(f"Trapezoid error: {trap_error}")
     print(f"Simpson's 1/3 error: {simp_error}")
-
 
     # now we plot...
 
