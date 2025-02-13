@@ -53,7 +53,7 @@ def main():
 
     # plot the convergence by plotting delta t against approx rel error in log-log space
 
-    downsamp_int = [0.01, 0.02, 0.04, 0.08, 0.16]  # sampling intervals
+    downsamp_int = [0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64]  # sampling intervals
     trap_error = []  # to store errors
     simp_error = []
 
@@ -61,7 +61,7 @@ def main():
     I_ref_simp = integrate_newton(t_data, v2_data, "simp")
 
     for i in downsamp_int:
-        values_keep = np.arange(0, len(t_data), int(1/i))  # determine the values to keep based on the downsamp int
+        values_keep = np.arange(0, len(t_data), int(i/0.01))  # determine the values to keep based on the downsamp int
 
         # we need to downsample the og t and v2 data with the kept values
         t_downsamp = t_data[values_keep]
@@ -81,14 +81,17 @@ def main():
         app_rel_e_simp = abs((I_down_simp - I_ref_simp)/I_ref_simp)
         simp_error.append(float(app_rel_e_simp))
 
+        print(f"Δt = {i}, I_down_simp = {I_down_simp}")
+
     print(f"Trapezoid error: {trap_error}")
     print(f"Simpson's 1/3 error: {simp_error}")
+
 
     # now we plot...
 
     log_downsamp_int = np.log10(downsamp_int)
-    log_trap_error = np.log10(trap_error)
-    log_simp_error = np.log10(simp_error)
+    log_trap_error = np.log10(np.maximum(trap_error, 1e-10))  # doing 1e-10 to ensure no log(0)
+    log_simp_error = np.log10(np.maximum(simp_error, 1e-10))
 
     print(f'trap: {log_trap_error}')
     print(f'simp: {log_simp_error}')
