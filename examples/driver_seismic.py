@@ -3,6 +3,7 @@ import numpy as np
 
 from goph420_lab01.integration import (
     integrate_newton,
+    integrate_gauss,
 )
 
 def main():
@@ -30,6 +31,8 @@ def main():
     plt.legend()
 
     plt.suptitle("Velocity as a Function of Time", fontsize=14)
+    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/s_wave_figure.png")
+    plt.show()
 
     # find the maximum absolute velocity and the boundary when v > 0.005 vmax which will be T
 
@@ -50,7 +53,57 @@ def main():
 
     # plot the convergence by plotting delta t against approx rel error in log-log space
 
-    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/s_wave_figure.png")
+    downsamp_int = [0.01, 0.02, 0.04, 0.08, 0.16]  # sampling intervals
+    trap_error = []  # to store errors
+    simp_error = []
+
+    # reference integral
+    I_ref_simp = integrate_newton(t_data, v2_data, "simp")
+
+    for i in downsamp_int:
+        values_keep = np.arange(0, len(t_data), int(1/i))  # determine the values to keep based on the downsamp int
+
+        # we need to downsample the og t and v2 data with the kept values
+        t_downsamp = t_data[values_keep]
+        v2_downsamp = v2_data[values_keep]
+
+        # we need to keep points odd for simpson
+        if len(t_downsamp) % 2 == 0:
+            t_downsamp = t_downsamp[:-1]  # remove the last point
+            v2_downsamp = v2_downsamp[:-1]  # remove the last velocity to match
+
+        I_down_trap = integrate_newton(t_downsamp, v2_downsamp, "trap")
+        I_down_simp = integrate_newton(t_downsamp, v2_downsamp, "simp")
+
+        app_rel_e_trap = abs((I_down_trap - I_ref_simp)/I_ref_simp)
+        trap_error.append(float(app_rel_e_trap))
+
+        app_rel_e_simp = abs((I_down_simp - I_ref_simp)/I_ref_simp)
+        simp_error.append(float(app_rel_e_simp))
+
+    print(f"Trapezoid error: {trap_error}")
+    print(f"Simpson's 1/3 error: {simp_error}")
+
+    # now we plot...
+
+    log_downsamp_int = np.log10(downsamp_int)
+    log_trap_error = np.log10(trap_error)
+    log_simp_error = np.log10(simp_error)
+
+    print(f'trap: {log_trap_error}')
+    print(f'simp: {log_simp_error}')
+
+    plt.figure(figsize=(8, 6))
+
+    plt.grid()
+    plt.plot(log_downsamp_int, log_trap_error, "-.r", label="Trapezoid error")
+    plt.plot(log_downsamp_int, log_simp_error, "-.g", label="Simpson's 1/3 Error")
+    plt.xlabel("Downsampling Interval (s)")
+    plt.ylabel("Error")
+    plt.legend()
+
+    plt.suptitle("Error as a Function of the Downsampling Interval", fontsize=14)
+    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/convergence.png")
     plt.show()
 
 
