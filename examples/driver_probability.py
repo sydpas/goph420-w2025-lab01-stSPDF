@@ -35,7 +35,7 @@ def prob_seismic(x):
     z = (x - mean) / stdev
 
     # integration limits
-    lims = [2, 10]
+    lims = [0, np.max(z)]
 
     #  equation 24 + using gauss
     return integrate_gauss(stand_normal_prob, lims, 5)
