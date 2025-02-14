@@ -96,7 +96,7 @@ def main():
     plt.legend()
 
     plt.suptitle("Error as a Function of the Downsampling Interval", fontsize=14)
-    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/convergence.png")
+    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/seismic_convergence.png")
     plt.show()
 
 
