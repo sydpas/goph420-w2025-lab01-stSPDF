@@ -53,7 +53,7 @@ def main():
 
     # plot the convergence by plotting delta t against approx rel error in log-log space
 
-    downsamp_int = [0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64]  # sampling intervals
+    downsamp_int = [0.02, 0.04, 0.08, 0.16]  # sampling intervals
     trap_error = []  # to store errors
     simp_error = []
 
@@ -86,18 +86,11 @@ def main():
 
     # now we plot...
 
-    log_downsamp_int = np.log10(downsamp_int)
-    log_trap_error = np.log10(np.maximum(trap_error, 1e-10))  # doing 1e-10 to ensure no log(0)
-    log_simp_error = np.log10(np.maximum(simp_error, 1e-10))
-
-    print(f'trap: {log_trap_error}')
-    print(f'simp: {log_simp_error}')
-
     plt.figure(figsize=(8, 6))
 
     plt.grid()
-    plt.plot(log_downsamp_int, log_trap_error, "-.r", label="Trapezoid error")
-    plt.plot(log_downsamp_int, log_simp_error, "-.g", label="Simpson's 1/3 Error")
+    plt.loglog(downsamp_int, trap_error, "-.r", label="Trapezoid error")
+    plt.loglog(downsamp_int, simp_error, "-.g", label="Simpson's 1/3 Error")
     plt.xlabel("Downsampling Interval (s)")
     plt.ylabel("Error")
     plt.legend()
