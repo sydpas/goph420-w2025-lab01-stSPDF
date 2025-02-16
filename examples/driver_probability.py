@@ -69,7 +69,7 @@ def main():
     # seismic Probability Plot
     plt.subplot(1, 2, 1)
     plt.grid()
-    plt.plot(npts_list, seismic_prob, "-r", label="Seismic Probability")
+    plt.loglog(npts_list, seismic_prob, "-r", label="Seismic Probability")
     plt.xlabel("Integration Points")
     plt.ylabel("Probability")
     plt.title("Seismic Probability Convergence")
@@ -78,7 +78,7 @@ def main():
     # distance Probability Plot
     plt.subplot(1, 2, 2)
     plt.grid()
-    plt.plot(npts_list, distance_prob, "-b", label="Distance Probability")
+    plt.loglog(npts_list, distance_prob, "-b", label="Distance Probability")
     plt.xlabel("Integration Points")
     plt.ylabel("Probability")
     plt.title("Distance Probability Convergence")
