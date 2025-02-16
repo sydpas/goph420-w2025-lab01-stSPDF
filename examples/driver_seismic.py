@@ -31,7 +31,7 @@ def main():
     plt.legend()
 
     plt.suptitle("Velocity as a Function of Time", fontsize=14)
-    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/s_wave_figure.png")
+    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/seismic_s_wave.png")
     plt.show()
 
     # find the maximum absolute velocity and the boundary when v > 0.005 vmax which will be T
@@ -96,7 +96,7 @@ def main():
     plt.legend()
 
     plt.suptitle("Error as a Function of the Downsampling Interval", fontsize=14)
-    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/seismic_convergence.png")
+    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/seismic_convergence_ds.png")
     plt.show()
 
 
