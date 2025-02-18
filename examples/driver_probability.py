@@ -7,7 +7,7 @@ from goph420_lab01.integration import (
 
 
 def stand_normal_prob(z):
-    """"
+    """
     Uses equation 17.
     """
     return (1 / np.sqrt(2 * np.pi)) * np.exp((-1 / 2) * z ** 2)
@@ -15,8 +15,9 @@ def stand_normal_prob(z):
 
 def probability_seismic(magnitude, mean, stdev, npts):
     """
-    # for part i. of question 8
-    # computing the probability of a seismic event with a magnitude greater than 4.0.
+    For part i. of question 8.
+
+    Computing the probability of a seismic event with a magnitude greater than 4.0.
     """
 
     # equation 18
@@ -29,13 +30,43 @@ def probability_seismic(magnitude, mean, stdev, npts):
 
 def probability_distance(L1, L2, L_mean, stdev, npts):
     """
-    for part ii. of question 8.
-    # determining the probability that the true value is between 10.25-10.35m.
+    For part ii. of question 8.
+
+    Determining the probability that the true value is between 10.25-10.35m.
     """
     # integration limits
     lims = [((L1 - L_mean) / stdev), ((L2 - L_mean) / stdev)]
 
     return integrate_gauss(stand_normal_prob, lims, npts)
+
+
+def h_refine_gauss(npts_list, interval_list):
+    """
+    Calculate h-refinement and relative error.
+    """
+    # integration limits
+    lims = [4, 10]
+
+    exact_gauss = integrate_gauss(stand_normal_prob, lims, 5)
+    error = {npts: [] for npts in npts_list}  # initializing a dictionary to add diff intervals to each list
+    interval_values = []
+
+    for intervals in interval_list:
+        interval_num = (10 - 4)/intervals
+        interval_values.append(interval_num)
+
+        for npts in npts_list:
+            # sub-intervals
+            result_gauss = sum(
+                integrate_gauss(stand_normal_prob, [4 + i * interval_num, 4 + (i + 1) * interval_num], npts)
+                for i in range(intervals))
+
+            # compute relative error
+            rel_error = abs((result_gauss - exact_gauss) / exact_gauss)
+            error[npts].append(rel_error)
+
+    return interval_values, error
+
 
 def main():
     mean = 1.5
@@ -69,7 +100,7 @@ def main():
     # seismic Probability Plot
     plt.subplot(1, 2, 1)
     plt.grid()
-    plt.loglog(npts_list, seismic_prob, "-r", label="Seismic Probability")
+    plt.plot(npts_list, seismic_prob, "-r", label="Seismic Probability")
     plt.xlabel("Integration Points")
     plt.ylabel("Probability")
     plt.title("Seismic Probability Convergence")
@@ -78,7 +109,7 @@ def main():
     # distance Probability Plot
     plt.subplot(1, 2, 2)
     plt.grid()
-    plt.loglog(npts_list, distance_prob, "-b", label="Distance Probability")
+    plt.plot(npts_list, distance_prob, "-b", label="Distance Probability")
     plt.xlabel("Integration Points")
     plt.ylabel("Probability")
     plt.title("Distance Probability Convergence")
@@ -86,6 +117,22 @@ def main():
 
     plt.tight_layout()
     plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/probability_plots.png")
+    plt.show()
+
+    # h-refinement plot
+    intervals_list = [1, 2, 4, 8, 16, 32]
+    interval_values, error = h_refine_gauss([2, 3, 4], intervals_list)
+
+    plt.figure(figsize=(6, 5))
+
+    for npts in error:
+        plt.plot(interval_values, error[npts], label=f"{npts} Integration Points", marker="o")
+    plt.grid()
+    plt.xlabel("Interval Value")
+    plt.ylabel("Relative Error")
+    plt.title("h-Refinement Convergence for Gauss")
+    plt.legend()
+    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/probability_h_refine_plot.png")
     plt.show()
 
 
