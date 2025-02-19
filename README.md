@@ -1,5 +1,5 @@
 # GOPH 420 -- Lab 01
-*Instructor: Brandon Karchewski, Authors: Sydney Pasloski (UCID: 30178579), Declan Fitzpatrick (UCID: )*
+*Instructor: Brandon Karchewski, Authors: Sydney Pasloski (UCID: 30178579), Declan Fitzpatrick (UCID: 30192415)*
 
 ## General overview. 
 
