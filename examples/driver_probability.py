@@ -42,7 +42,8 @@ def probability_distance(L1, L2, L_mean, stdev, npts):
 
 def h_refine_gauss(npts_list, interval_list):
     """
-    Calculate h-refinement and relative error.
+    Calculate h-refinement by performing Gauss integration over sub-intervals into smaller parts.
+    Also determining relative error.
     """
     # integration limits
     lims = [4, 10]
@@ -52,10 +53,11 @@ def h_refine_gauss(npts_list, interval_list):
     interval_values = []
 
     for intervals in interval_list:
+        # computing subinterval value
         interval_num = (10 - 4)/intervals
         interval_values.append(interval_num)
 
-        for npts in npts_list:
+        for npts in npts_list:  # looping over the integration pnts
             # sub-intervals
             result_gauss = sum(
                 integrate_gauss(stand_normal_prob, [4 + i * interval_num, 4 + (i + 1) * interval_num], npts)
