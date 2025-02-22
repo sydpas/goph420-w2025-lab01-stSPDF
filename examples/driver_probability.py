@@ -8,6 +8,8 @@ from goph420_lab01.integration import (
 
 def stand_normal_prob(z):
     """
+    Computes the probability density function (PDF).
+
     Uses equation 17.
     """
     return (1 / np.sqrt(2 * np.pi)) * np.exp((-1 / 2) * z ** 2)
@@ -27,6 +29,7 @@ def probability_seismic(magnitude, mean, stdev, npts):
     lims = [z, 10]
 
     return integrate_gauss(stand_normal_prob, lims, npts)
+
 
 def probability_distance(L1, L2, L_mean, stdev, npts):
     """
@@ -128,7 +131,7 @@ def main():
     plt.figure(figsize=(6, 5))
 
     for npts in error:
-        plt.plot(interval_values, error[npts], label=f"{npts} Integration Points", marker="o")
+        plt.loglog(interval_values, error[npts], label=f"{npts} Integration Points", marker="o")
     plt.grid()
     plt.xlabel("Interval Value")
     plt.ylabel("Relative Error")
@@ -140,6 +143,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
