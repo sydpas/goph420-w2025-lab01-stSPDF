@@ -55,10 +55,9 @@ def integrate_newton(x, f, alg):
         integral = np.sum(h * (f[:-1] + f[1:]) / 2)  # h * average of all intermediate elements of f
         return integral
 
-
     def integrate_newton_simp(x, f):
         """
-        This function performs numerical integration of discrete data using Simpson's mutli-application rule.
+        This function performs numerical integration of discrete data using Simpson's multi-application rule.
 
         Parameters
         -----
@@ -79,7 +78,7 @@ def integrate_newton(x, f, alg):
         """
 
         if len(x) % 2 == 0:  # make sure the number of points is odd
-           raise ValueError("The number of points (len(x)) must be odd for Simpson's 1/3 rule.")
+            raise ValueError("The number of points (len(x)) must be odd for Simpson's 1/3 rule.")
 
         n = len(x) - 1  # number of intervals
         h = (x[-1] - x[0]) / n  # step size
@@ -97,6 +96,7 @@ def integrate_newton(x, f, alg):
         return integrate_newton_simp(x, f)
     elif alg not in ['trap', 'simp']:
         raise TypeError("Please use either the Trapezoid rule or Simpson's rule.")
+
 
 def integrate_gauss(f, lims, npts):
     """
@@ -142,16 +142,13 @@ def integrate_gauss(f, lims, npts):
     a, b = lims
 
     # shifts then scales sample points from [-1, 1] to [a, b], eq (9)
-    xi = ((b + a)/2) + (((b - a)/2) * xi_star)
+    xi = ((b + a) / 2) + (((b - a) / 2) * xi_star)
 
     # only scales weights from [-1, 1] to [a, b], eq (10)
-    ci = ((b - a)/2) * ci_star
+    ci = ((b - a) / 2) * ci_star
 
     # approx integral
     integral = 0
     for i in range(npts):
         integral += ci[i] * f(xi[i])
     return integral
-
-    
-
