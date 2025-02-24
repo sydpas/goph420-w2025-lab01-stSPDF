@@ -14,26 +14,6 @@ def main():
 
     # part 1
 
-    plt.figure(figsize=(6, 8))
-
-    plt.subplot(2, 1, 1)
-    plt.grid()
-    plt.plot(t_data, v_data, "-b", label="Seismic wave data")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Velocity (mm²/s²)")
-    plt.legend()
-
-    plt.subplot(2, 1, 2)
-    plt.grid()
-    plt.plot(t_data, v2_data, "-r", label="Squared Seismic wave data")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Squared velocity (mm²/s²)")
-    plt.legend()
-
-    plt.suptitle("Velocity as a Function of Time", fontsize=14)
-    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/seismic_s_wave.png")
-    plt.show()
-
     # find the maximum absolute velocity and the boundary when v > 0.005 vmax which will be T
 
     # find the max abs velocity (strongest seismic wave)
@@ -50,6 +30,30 @@ def main():
 
     print(f'Average squared velocity using trapezoid rule: {integral_trap} mm²/s²')
     print(f"Average squared velocity using Simpson's 1/3 rule: {integral_simp} mm²/s²")
+
+    plt.figure(figsize=(11, 5))
+
+    plt.subplot(1, 2, 1)
+    plt.grid()
+    plt.plot(t_data, v_data, "-b", label="Seismic wave data")
+    plt.axvline(float(T), color='r', linestyle='--', label=f"Significant velocity ({T:.2f} s)")
+    plt.scatter(T, np.interp(T, t_data, v_data), color='r', zorder=3)
+    plt.xlabel("Time (s)")
+    plt.ylabel("Velocity (mm²/s²)")
+    plt.legend()
+
+    plt.subplot(1, 2, 2)
+    plt.grid()
+    plt.plot(t_data, v2_data, "-g", label="Squared Seismic wave data")
+    plt.axvline(float(T), color='r', linestyle='--', label=f"Significant velocity ({T:.2f} s)")
+    plt.scatter(T, np.interp(T, t_data, v_data), color='r', zorder=3)
+    plt.xlabel("Time (s)")
+    plt.ylabel("Squared velocity (mm²/s²)")
+    plt.legend()
+
+    plt.suptitle("Velocity as a Function of Time", fontsize=14)
+    plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/seismic_s_wave.png")
+    plt.show()
 
     # plot the convergence by plotting delta t against approx rel error in log-log space
 
