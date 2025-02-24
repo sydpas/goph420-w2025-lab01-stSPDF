@@ -135,7 +135,7 @@ def main():
     plt.grid()
     plt.xlabel("Interval Value")
     plt.ylabel("Relative Error")
-    plt.title("h-Refinement Convergence for Gauss")
+    plt.title("Relative Error as a Function of the Interval Value")
     plt.legend()
     plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/probability_h_refine_plot.png")
     plt.show()
