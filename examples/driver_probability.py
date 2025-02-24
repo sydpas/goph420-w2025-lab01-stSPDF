@@ -122,11 +122,14 @@ def main():
 
     plt.tight_layout()
     plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/probability_plots.png")
-    #plt.show()
+    plt.show()
 
     # h-refinement plot
     intervals_list = [1, 2, 4, 8, 16, 32]
     interval_values, error = h_refine_gauss([2, 3, 4], intervals_list)
+
+    print(f'Interval values: {interval_values}')
+    print(f'Relative error:', [float(val) for val in distance_prob])
 
     plt.figure(figsize=(6, 5))
 
@@ -138,7 +141,7 @@ def main():
     plt.title("Relative Error as a Function of the Interval Value")
     plt.legend()
     plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/probability_h_refine_plot.png")
-    #plt.show()
+    plt.show()
 
 
 if __name__ == "__main__":
