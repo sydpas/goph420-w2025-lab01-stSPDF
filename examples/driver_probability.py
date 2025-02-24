@@ -83,10 +83,10 @@ def main():
     npts_list = [1, 2, 3, 4, 5]
 
     prob_gt_4 = [probability_seismic(magnitude, mean, stdev, npts) for npts in npts_list]
-    print(f'Probability of an earthquake with magnitude greater than 4: {prob_gt_4}')
+    print(f'Probability of an earthquake with magnitude greater than 4:', [float(val) for val in prob_gt_4])
 
     prob_true_value = [probability_distance(L1, L2, L_mean, stdev, npts) for npts in npts_list]
-    print(f'The probably of distance between 10.25 - 10.35m is: {prob_true_value}')
+    print(f'The probably of distance between 10.25 - 10.35m is:', [float(val) for val in prob_true_value])
 
     # now we plot the convergence of probability estimates with increasing integration points.
     seismic_prob = []
@@ -97,8 +97,8 @@ def main():
         distance_prob.append(
             integrate_gauss(stand_normal_prob, [(L1 - L_mean) / stdev, (L2 - L_mean) / stdev], npts))
 
-    print("Seismic Probabilities:", seismic_prob)
-    print("Distance Probabilities:", distance_prob)
+    print("Seismic Probabilities:", [float(val) for val in seismic_prob])
+    print("Distance Probabilities:", [float(val) for val in distance_prob])
 
     plt.figure(figsize=(10, 4))
 
@@ -122,7 +122,7 @@ def main():
 
     plt.tight_layout()
     plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/probability_plots.png")
-    plt.show()
+    #plt.show()
 
     # h-refinement plot
     intervals_list = [1, 2, 4, 8, 16, 32]
@@ -138,7 +138,7 @@ def main():
     plt.title("Relative Error as a Function of the Interval Value")
     plt.legend()
     plt.savefig("C:/Users/sydne/git/goph420/goph420-w2025-lab01-stSP/figures/probability_h_refine_plot.png")
-    plt.show()
+    #plt.show()
 
 
 if __name__ == "__main__":
