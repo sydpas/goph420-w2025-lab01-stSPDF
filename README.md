@@ -2,8 +2,8 @@
 *Instructor: Brandon Karchewski, Authors: Sydney Pasloski (UCID: 30178579), Declan Fitzpatrick (UCID: 30192415)*
 
 ## General overview. 
-
-
+This lab focuses on the Newton-Cotes rules and Gauss-Legendre quadrature. Newton-Cotes estimates S-wave energy, while
+Gauss-Legendre computes seismic probabilities.
 
 ## How to clone the repository.
 
